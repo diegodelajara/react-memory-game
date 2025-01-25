@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import Card from './Card'
 import Button from './Button'
-import { AnimalProps } from '@/types/Card'
+import { OriginalCardProps } from '@/types/Card'
 
 const getUserName = (): string => {
   const storedName =
@@ -24,9 +24,11 @@ export async function MemoryGame() {
   const userName = getUserName()
   const response =
     (await fetch(`https://challenge-uno.vercel.app/api/images`)) || []
-  const data = (await response.json()) as AnimalProps[]
+  const data = (await response.json()) as OriginalCardProps[]
   const duplicatedImages = [...data, ...data]
   const shuffledImages = duplicatedImages.sort(() => Math.random() - 0.5)
+
+  console.warn(data)
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
@@ -39,11 +41,11 @@ export async function MemoryGame() {
       </header>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {shuffledImages.map((card) => (
-          <Fragment key={card.id}>
+        {shuffledImages.map((card, index) => (
+          <Fragment key={index}>
             <Card
               className={`relative w-24 h-32 bg-#242439-500`}
-              id={card.id}
+              id={card.uuid}
               title={card.title}
               image={''}
             >

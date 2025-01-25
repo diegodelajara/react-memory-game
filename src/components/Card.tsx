@@ -1,48 +1,24 @@
 'use client'
-import { AnimalProps, CardProps } from '@/types/Card'
-import React, { Fragment, useState } from 'react'
+import React from 'react'
+import { useCardContext } from '@/context/CardContext'
+import { CardProps } from '@/types/Card'
 
-export default function Card({ children: image, id, title }: CardProps) {
-  const MAX_FLIPPED = 2
-  const [flipped, setFlipped] = useState(false)
-  const [matched, setMatched] = useState(false)
-  const [disabled, setDisabled] = useState(false)
-  const [flippedCount, setFlippedCount] = useState(0)
-  const [errorCount, setErrorCount] = useState(0)
-  const [successCount, setSuccessCount] = useState(0)
-  const [firstCard, setFirstCard] = useState<AnimalProps['id']>(0)
-  const [secondCard, setSecondCard] = useState<AnimalProps['id']>(0)
-
-  const onMatch = () => {
-    setMatched(firstCard === secondCard)
-    setFlippedCount(0)
-  }
-
-  const onFlipp = (id: AnimalProps['id']) => {
-    if (disabled) return
-    if (flippedCount >= MAX_FLIPPED) return
-
-    setFlipped(true)
-    setFlippedCount(flippedCount + 1)
-    if (firstCard === 0) {
-      setFirstCard(id)
-    } else {
-      setSecondCard(id)
-      setDisabled(true)
-    }
-    onMatch()
-  }
+export default function Card({ children: image, id }: CardProps) {
+  const { handleFlip, flippedCards, matchedCards } = useCardContext()
+  const isFlipped = flippedCards.some((card) => card.id === id)
+  const isMatched = matchedCards.includes(id)
 
   return (
-    <div onClick={() => onFlipp(id)}>
-      {flipped ? (
-        <div className="flex flex-col">
-          <div>{image}</div>
-          <p>{title}</p>
+    <div
+      className={`card ${isFlipped || isMatched ? 'flipped' : ''}`}
+      onClick={() => handleFlip(id)}
+    >
+      <div className="card-inner">
+        <div className="card-front">{image}</div>
+        <div className="card-back">
+          <p>Back of the card</p>
         </div>
-      ) : (
-        <div className="bg-blue-500 w-24 h-32"></div>
-      )}
+      </div>
     </div>
   )
 }
