@@ -1,4 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
+import Image from "next/image";
+
 import Card from "./Card";
 import Button from "./Button";
 import CardContent from "./CardContent";
@@ -6,6 +8,7 @@ import CardContent from "./CardContent";
 interface CardType {
   id: number;
   url: string;
+  title: string;
   flipped: boolean;
 }
 
@@ -40,7 +43,8 @@ export async function MemoryGame() {
   //   };
 
   const userName = getUserName();
-  const response = await fetch(`https://challenge-uno.vercel.app/api/images`);
+  const response =
+    (await fetch(`https://challenge-uno.vercel.app/api/images`)) || [];
   const data = (await response.json()) as CardType[];
 
   return (
@@ -55,15 +59,22 @@ export async function MemoryGame() {
 
       <div className="grid grid-cols-4 gap-4">
         {data.map((card) => (
-          <Card key={card.id} className={`relative w-24 h-32 bg-blue-500`}>
-            <CardContent className="w-full h-full flex items-center justify-center">
-              <img
-                src={card.url}
-                alt="Animal"
-                className="object-cover w-full h-full rounded-md hidden"
-              />
-            </CardContent>
-          </Card>
+          <Fragment key={card.id}>
+            <Card className={`relative w-24 h-32 bg-blue-500`}>
+              <CardContent
+                className="w-full h-full flex items-center justify-center"
+                title={card.title}
+              >
+                <Image
+                  src={card.url}
+                  alt="Animal"
+                  width={200}
+                  height={200}
+                  className="rounded-md "
+                />
+              </CardContent>
+            </Card>
+          </Fragment>
         ))}
       </div>
 

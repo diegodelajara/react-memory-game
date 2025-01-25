@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["challenge-uno.vercel.app"], // Agrega aquí el dominio
+  },
 };
 
 export default nextConfig;
