@@ -4,6 +4,7 @@ export type CardProps = {
   id: string
   title: string
   image: string
+  uniqueId?: string
 }
 export type CardContentProps = {
   children: React.ReactNode

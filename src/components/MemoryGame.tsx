@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Card from './Card'
 import Button from './Button'
 import { OriginalCardProps } from '@/types/Card'
+import { useCardContext } from '@/context/CardContext'
+import Results from './Results'
 
 const getUserName = (): string => {
   const storedName =
@@ -28,26 +30,26 @@ export async function MemoryGame() {
   const duplicatedImages = [...data, ...data]
   const shuffledImages = duplicatedImages.sort(() => Math.random() - 0.5)
 
-  console.warn(data)
+  const duplicateCardsWithUniqueIds = () => {
+    return shuffledImages.flatMap((card) => [
+      { ...card, uniqueId: `${card.uuid}-A` },
+      { ...card, uniqueId: `${card.uuid}-B` },
+    ])
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-      <header className="mb-6 text-center">
-        <h1 className="text-2xl font-bold">Welcome, {userName}!</h1>
-        <div className="mt-4">
-          <p className="text-gray-700">Errors: 0</p>
-          <p className="text-gray-700">Successes: 0</p>
-        </div>
-      </header>
+      <Results />
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {shuffledImages.map((card, index) => (
+        {duplicateCardsWithUniqueIds().map((card, index) => (
           <Fragment key={index}>
             <Card
               className={`relative w-24 h-32 bg-#242439-500`}
               id={card.uuid}
               title={card.title}
               image={''}
+              uniqueId={card.uniqueId}
             >
               <Image
                 src={card.url}

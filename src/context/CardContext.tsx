@@ -17,33 +17,30 @@ export const CardProvider: React.FC<{ children: React.ReactNode }> = ({
   const [successCount, setSuccessCount] = useState(0)
 
   // Función para manejar el volteo de las cartas
-  const handleFlip = (id: AnimalProps['id']) => {
-    console.log('id', id)
-
+  const handleFlip = async (id: AnimalProps['id']) => {
     // Si ya hay 2 cartas volteadas, no permitir más acciones
     if (flippedCards.length >= 2) return
 
     const updatedFlippedCards = [...flippedCards, { id }]
+
     setFlippedCards(updatedFlippedCards)
 
     if (updatedFlippedCards.length === 2) {
-      // Comprobar si las cartas coinciden
       const [firstCard, secondCard] = updatedFlippedCards
       if (firstCard.id === secondCard.id) {
-        setMatchedCards([...matchedCards, firstCard.id]) // Añadir al array de coincidencias
-        setSuccessCount(successCount + 1) // Incrementar éxitos
+        setMatchedCards([...matchedCards, id])
+
+        setSuccessCount(successCount + 1)
       } else {
-        setErrorCount(errorCount + 1) // Incrementar errores
+        setErrorCount(errorCount + 1)
       }
 
-      // Reiniciar flippedCards después de un retraso
       setTimeout(() => {
         setFlippedCards([])
       }, 1000)
     }
   }
 
-  // Función para reiniciar el juego
   const resetGame = () => {
     setFlippedCards([])
     setMatchedCards([])
