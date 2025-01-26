@@ -16,9 +16,7 @@ export const CardProvider: React.FC<{ children: React.ReactNode }> = ({
   const [errorCount, setErrorCount] = useState(0)
   const [successCount, setSuccessCount] = useState(0)
 
-  // Función para manejar el volteo de las cartas
   const handleFlip = async (id: AnimalProps['id']) => {
-    // Si ya hay 2 cartas volteadas, no permitir más acciones
     if (flippedCards.length >= 2) return
 
     const updatedFlippedCards = [...flippedCards, { id }]
@@ -64,7 +62,6 @@ export const CardProvider: React.FC<{ children: React.ReactNode }> = ({
   )
 }
 
-// Hook para usar el contexto
 export const useCardContext = () => {
   const context = useContext(CardContext)
   if (!context) {

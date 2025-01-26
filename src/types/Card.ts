@@ -6,11 +6,6 @@ export type CardProps = {
   image: string
   uniqueId?: string
 }
-export type CardContentProps = {
-  children: React.ReactNode
-  className?: string
-  title: string
-}
 export type AnimalProps = {
   id: string
   url: string
@@ -30,5 +25,9 @@ export type OriginalCardProps = {
   url: string
   uuid: string
   title: string
-  content_type: string
+  contentType: string
+}
+
+export type BoardProps = {
+  shuffledImages: OriginalCardProps[]
 }
