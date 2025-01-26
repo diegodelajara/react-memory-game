@@ -4,11 +4,14 @@ import React, { useState } from 'react'
 
 export default function NameModal() {
   const [name, setName] = useState('')
-  const [, setUserName] = useLocalStorage<string>('user', 'Guest')
+  const [getValue, setUserName] = useLocalStorage<string>('user', 'Guest')
 
   const handleSave = () => {
     if (name.trim()) {
       setUserName(name)
+      if (getValue) {
+        window.location.reload()
+      }
     } else {
       alert('Please enter a valid name.')
     }

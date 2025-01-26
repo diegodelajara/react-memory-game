@@ -1,4 +1,4 @@
-import MemoryGame from '@/components/modules/Game/MemoryGame'
+import MemoryGame from '@/components/modules/Game'
 import { CardProvider } from '@/context/CardContext'
 import React from 'react'
 

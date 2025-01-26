@@ -1,7 +1,6 @@
 import React from 'react'
 import { OriginalCardProps } from '@/types/Card'
-import Board from '../../common/Board'
-import User from '../User'
+import Board from './Board'
 
 export async function MemoryGame() {
   const response =
@@ -20,7 +19,6 @@ export async function MemoryGame() {
 
   return (
     <>
-      <User />
       <Board shuffledImages={shuffledImages} />
     </>
   )
