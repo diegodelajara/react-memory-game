@@ -23,7 +23,8 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      background-color: #68d391;
+      /* background-color: #68d391; */
+      background-color: 'transparent';
     }
     
 	.card__front {
