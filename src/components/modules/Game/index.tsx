@@ -1,5 +1,5 @@
 import React from 'react'
-import { OriginalCardProps } from '@/types/Card'
+import { CardProps, OriginalCardProps } from '@/types/Card'
 import Board from './Board'
 
 export async function MemoryGame() {
@@ -17,11 +17,7 @@ export async function MemoryGame() {
     () => Math.random() - 0.5
   )
 
-  return (
-    <>
-      <Board shuffledImages={shuffledImages} />
-    </>
-  )
+  return <Board shuffledImages={shuffledImages as CardProps[]} />
 }
 
 export default MemoryGame

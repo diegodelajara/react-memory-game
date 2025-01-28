@@ -1,0 +1,9 @@
+
+  
+  .memory-game__board--grid {
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  

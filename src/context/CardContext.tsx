@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useState } from 'react'
-import { AnimalProps, CardContextProps } from '@/types/Card'
+import { CardContextProps, CardProps } from '@/types/Card'
 
 const CardContext = createContext<CardContextProps | undefined>(undefined)
 
@@ -16,17 +16,20 @@ export const CardProvider: React.FC<{ children: React.ReactNode }> = ({
   const [errorCount, setErrorCount] = useState(0)
   const [successCount, setSuccessCount] = useState(0)
 
-  const handleFlip = async (id: AnimalProps['id']) => {
+  const handleFlip = async (
+    id: CardProps['uniqueId'],
+    uuid: CardProps['uniqueId']
+  ) => {
     if (flippedCards.length >= 2) return
 
-    const updatedFlippedCards = [...flippedCards, { id }]
+    const updatedFlippedCards = [...flippedCards, { id: uuid, uniqueId: id }]
 
     setFlippedCards(updatedFlippedCards)
 
     if (updatedFlippedCards.length === 2) {
       const [firstCard, secondCard] = updatedFlippedCards
       if (firstCard.id === secondCard.id) {
-        setMatchedCards([...matchedCards, id])
+        setMatchedCards([...matchedCards, { id: firstCard.id }])
 
         setSuccessCount(successCount + 1)
       } else {

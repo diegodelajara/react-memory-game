@@ -1,0 +1,33 @@
+.card {
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  
+  .card__inner {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  
+  .card--flipped .card__inner {
+    transform: rotateY(180deg);
+  }
+  
+  .card__front,
+  .card__back {
+    backface-visibility: hidden;
+    border-radius: 0.5rem;
+  }
+  
+  .card__back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      background-color: #68d391;
+    }
+    
+	.card__front {
+		background-color: #e2e8f0;
+		background-size: cover;
+		transform: rotateY(180deg);
+  }

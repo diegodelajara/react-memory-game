@@ -1,9 +1,11 @@
-export type CardProps = {
-  children: React.ReactNode
-  className?: string
-  id: string
+export type OriginalCardProps = {
+  url: string
+  uuid: string
   title: string
-  image: string
+  contentType?: string
+}
+
+export type CardProps = OriginalCardProps & {
   uniqueId?: string
 }
 export type AnimalProps = {
@@ -13,21 +15,19 @@ export type AnimalProps = {
   flipped: boolean
 }
 export type CardContextProps = {
-  flippedCards: Array<{ id: AnimalProps['id'] }>
-  matchedCards: AnimalProps['id'][]
+  flippedCards: Array<{
+    id: CardProps['uniqueId']
+    uniqueId?: CardProps['uniqueId']
+  }>
+  matchedCards: {
+    id: CardProps['uniqueId']
+  }[]
   errorCount: number
   successCount: number
-  handleFlip: (id: AnimalProps['id']) => void
+  handleFlip: (id: CardProps['uniqueId'], uuid: CardProps['uniqueId']) => void
   resetGame: () => void
 }
 
-export type OriginalCardProps = {
-  url: string
-  uuid: string
-  title: string
-  contentType: string
-}
-
 export type BoardProps = {
-  shuffledImages: OriginalCardProps[]
+  shuffledImages: CardProps[]
 }
