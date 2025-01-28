@@ -6,6 +6,8 @@
   .card__inner {
     transition: transform 0.6s;
     transform-style: preserve-3d;
+    min-height: 200px;
+    max-width: 180px;
   }
   
   .card--flipped .card__inner {
